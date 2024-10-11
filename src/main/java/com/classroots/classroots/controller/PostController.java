@@ -1,12 +1,10 @@
 package com.classroots.classroots.controller;
 
-import com.classroots.classroots.PostRepository;
+import com.classroots.classroots.repository.PostRepository;
 import com.classroots.classroots.model.Post;
+import com.classroots.classroots.repository.SearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +14,19 @@ public class PostController {
     @Autowired
     PostRepository repo;
 
+    @Autowired
+    SearchRepository srepo;
+
     @GetMapping("/posts")
     public List<Post> getAllPosts() {
         return repo.findAll();
     }
+
+    @GetMapping("/posts/{text}")
+    public List<Post> getSpecificPost(@PathVariable String text) {
+        return srepo.findByText(text);
+    }
+
 
     @PostMapping("/post")
     public Post addPost(@RequestBody Post post) {
