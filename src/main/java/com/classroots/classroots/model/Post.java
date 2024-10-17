@@ -7,6 +7,7 @@ import java.util.Arrays;
 @Document(collection = "PlayerList")
 public class Post {
     private String name;
+    private String bio;
     private String position;
     private int seasons_played;
     private String previous_clubs[];
